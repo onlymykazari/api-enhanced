@@ -5604,6 +5604,104 @@ let data = encodeURIComponent(
 
 **调用例子:** `/rep/ugc/user/collect-vip?activityId=5001`
 
+### 云小编 - 剩余抽奖次数
+
+说明: 登录后调用此接口, 获取今日云小编抽奖剩余次数
+
+**可选参数:**
+
+`activityId`: 活动 ID, 默认 `6501202`
+
+**接口地址:** `/middle/play/lottery/remain/chance`
+
+**调用例子:** `/middle/play/lottery/remain/chance?activityId=6501202`
+
+### 云小编 - 每日抽奖
+
+说明: 登录后调用此接口, 消耗 200 积分进行抽奖, 每日最多抽 3 次
+
+> 注意: 抽奖失败也消耗每日次数, 请先调用 `/rep/ugc/user/get` 查询可用积分
+
+**可选参数:**
+
+`activityId`: 活动 ID, 默认 `6501202`
+
+`drawCount`: 未知, 默认 `1`
+
+**接口地址:** `/middle/play/do/lottery`
+
+**调用例子:** `/middle/play/do/lottery?activityId=6501202&drawCount=1`
+
+### 云小编 - 考试状态
+
+说明: 登录后调用此接口, 查询云小编入站考试状态, 进度 (`data.process`): no: 未开始, process: 考试中, whole_exam_end: 已结束, 此时可检查 `data.hasPassExamination` 确认是否通过
+
+**必选参数:**
+
+`examType`: 考试类型, musicalStyleEnter: 歌曲曲风审核, languageEnter: 歌曲语种审核, oriSingerEnter: 歌曲原唱审核, emotionEnter: 情绪标签审核
+
+**接口地址:** `/rep/ugc/exam/info/get`
+
+**调用例子:** `/rep/ugc/exam/info/get?examType=emotionEnter`
+
+### 云小编 - 考试开始
+
+说明: 未考试或考试失败时调用此接口, 开始新一轮考试
+
+**必选参数:**
+
+`examType`: 考试类型, musicalStyleEnter: 歌曲曲风审核, languageEnter: 歌曲语种审核, oriSingerEnter: 歌曲原唱审核, emotionEnter: 情绪标签审核
+
+**接口地址:** `/rep/ugc/exam/start`
+
+**调用例子:** `/rep/ugc/exam/start?examType=emotionEnter`
+
+### 云小编 - 考试取题
+
+说明: 考试开始后调用此接口, 获取当前试题
+
+**必选参数:**
+
+`examType`: 考试类型, musicalStyleEnter: 歌曲曲风审核, languageEnter: 歌曲语种审核, oriSingerEnter: 歌曲原唱审核, emotionEnter: 情绪标签审核
+
+`taskId`: 任务 ID, 首次调用 `/rep/ugc/exam/start` 获取，之后调用 `/rep/ugc/exam/info/get` 获取
+
+**接口地址:** `/rep/ugc/exam/question/single/get`
+
+**调用例子:** `/rep/ugc/exam/question/single/get?examType=emotionEnter&taskId=123456`
+
+### 云小编 - 考试提交
+
+说明: 取题后调用此接口, 提交作答结果
+
+**必选参数:**
+
+`examType`: 考试类型, musicalStyleEnter: 歌曲曲风审核, languageEnter: 歌曲语种审核, oriSingerEnter: 歌曲原唱审核, emotionEnter: 情绪标签审核
+
+`taskId`: 任务 ID, 首次调用 `/rep/ugc/exam/start` 获取，之后调用 `/rep/ugc/exam/info/get` 获取
+
+`questionId`: 试题 ID, 调用 `/rep/ugc/exam/question/single/get` 获取
+
+`answer`: 判断结果, A: 对, B: 错
+
+**接口地址:** `/rep/ugc/exam/submit`
+
+**调用例子:** `/rep/ugc/exam/submit?examType=emotionEnter&taskId=123456&questionId=123456&answer=A`
+
+### 云小编 - 考试结果
+
+说明: 考试结束后调用此接口, 获取考试正确数与正确率
+
+**必选参数:**
+
+`examType`: 考试类型, musicalStyleEnter: 歌曲曲风审核, languageEnter: 歌曲语种审核, oriSingerEnter: 歌曲原唱审核, emotionEnter: 情绪标签审核
+
+`taskId`: 任务 ID, 首次调用 `/rep/ugc/exam/start` 获取，之后调用 `/rep/ugc/exam/info/get` 获取
+
+**接口地址:** `/rep/ugc/exam/result/get`
+
+**调用例子:** `/rep/ugc/exam/result/get?examType=emotionEnter&taskId=123456`
+
 ### 发送/删除评论
 
 说明 : 调用此接口,可发送评论或者删除评论
